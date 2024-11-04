@@ -1,26 +1,18 @@
 module.exports = {
-  email: 'brittany.chiang@gmail.com',
+  email: 'rakshitpatel.tech@gmail.com',
 
   socialMedia: [
     {
       name: 'GitHub',
-      url: 'https://github.com/bchiang7',
-    },
-    {
-      name: 'Instagram',
-      url: 'https://www.instagram.com/bchiang7',
-    },
-    {
-      name: 'Twitter',
-      url: 'https://twitter.com/bchiang7',
+      url: 'https://github.com/rakshit17patel',
     },
     {
       name: 'Linkedin',
-      url: 'https://www.linkedin.com/in/bchiang7',
+      url: 'https://www.linkedin.com/in/rakshit17p',
     },
     {
-      name: 'Codepen',
-      url: 'https://codepen.io/bchiang7',
+      name: 'Instagram',
+      url: 'https://www.instagram.com/rakshit1701',
     },
   ],
 
@@ -30,12 +22,20 @@ module.exports = {
       url: '/#about',
     },
     {
+      name: 'Education',
+      url: '/#education',
+    },
+    {
       name: 'Experience',
       url: '/#jobs',
     },
     {
       name: 'Work',
       url: '/#projects',
+    },
+    {
+      name: 'Skills',
+      url: '/#skills',
     },
     {
       name: 'Contact',

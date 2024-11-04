@@ -179,6 +179,12 @@ const Jobs = () => {
               location
               range
               url
+              description
+              projects {
+                title
+                description
+                url
+              }
             }
             html
           }
@@ -199,7 +205,6 @@ const Jobs = () => {
     if (prefersReducedMotion) {
       return;
     }
-
     sr.reveal(revealContainer.current, srConfig());
   }, []);
 
@@ -208,20 +213,16 @@ const Jobs = () => {
       tabs.current[tabFocus].focus();
       return;
     }
-    // If we're at the end, go to the start
     if (tabFocus >= tabs.current.length) {
       setTabFocus(0);
     }
-    // If we're at the start, move to the end
     if (tabFocus < 0) {
       setTabFocus(tabs.current.length - 1);
     }
   };
 
-  // Only re-run the effect if tabFocus changes
   useEffect(() => focusTab(), [tabFocus]);
 
-  // Focus on tabs when using up & down arrow keys
   const onKeyDown = e => {
     switch (e.key) {
       case KEY_CODES.ARROW_UP: {
@@ -229,16 +230,13 @@ const Jobs = () => {
         setTabFocus(tabFocus - 1);
         break;
       }
-
       case KEY_CODES.ARROW_DOWN: {
         e.preventDefault();
         setTabFocus(tabFocus + 1);
         break;
       }
-
-      default: {
+      default:
         break;
-      }
     }
   };
 
@@ -272,8 +270,8 @@ const Jobs = () => {
         <StyledTabPanels>
           {jobsData &&
             jobsData.map(({ node }, i) => {
-              const { frontmatter, html } = node;
-              const { title, url, company, range } = frontmatter;
+              const { frontmatter } = node;
+              const { title, url, company, range, description, projects } = frontmatter;
 
               return (
                 <CSSTransition key={i} in={activeTabId === i} timeout={250} classNames="fade">
@@ -293,10 +291,45 @@ const Jobs = () => {
                         </a>
                       </span>
                     </h3>
-
                     <p className="range">{range}</p>
-
-                    <div dangerouslySetInnerHTML={{ __html: html }} />
+                    {projects ? (
+                      // If there are multiple projects, display each one
+                      projects.map((project, idx) => (
+                        <div key={idx}>
+                          <h4>
+                            {project.url ? (
+                              <a
+                                href={project.url}
+                                className="inline-link"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                {project.title}
+                              </a>
+                            ) : (
+                              project.title
+                            )}
+                          </h4>
+                          <ul>
+                            {project.description
+                              .split('_')
+                              .filter(item => item.trim() !== '')
+                              .map((item, index) => (
+                                <li key={index}>{item}</li>
+                              ))}
+                          </ul>
+                        </div>
+                      ))
+                    ) : (
+                      // If there's a single project, follow the old structure
+                      <ul>
+                        {description
+                          .split('_')
+                          .filter(item => item.trim() !== '')
+                          .map((item, index) => (
+                            <li key={index}>{item}</li>
+                          ))}
+                      </ul>
+                    )}
                   </StyledTabPanel>
                 </CSSTransition>
               );

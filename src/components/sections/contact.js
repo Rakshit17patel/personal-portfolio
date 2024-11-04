@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { srConfig, email } from '@config';
+import { srConfig, email, socialMedia } from '@config';
 import sr from '@utils/sr';
 import { usePrefersReducedMotion } from '@hooks';
 
@@ -39,6 +39,29 @@ const StyledContactSection = styled.section`
     ${({ theme }) => theme.mixins.bigButton};
     margin-top: 50px;
   }
+
+  .contact-info {
+    margin-top: 30px;
+    font-size: var(--fz-lg);
+    text-align: left;
+    line-height: 1.5;
+    color: var(--light-slate);
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  .connect-message {
+    margin-top: 40px;
+    font-size: var(--fz-lg);
+    color: var(--light-slate);
+  }
 `;
 
 const Contact = () => {
@@ -57,12 +80,33 @@ const Contact = () => {
     <StyledContactSection id="contact" ref={revealContainer}>
       <h2 className="numbered-heading overline">What’s Next?</h2>
 
-      <h2 className="title">Get In Touch</h2>
-
-      <p>
-        Although I’m not currently looking for any new opportunities, my inbox is always open.
-        Whether you have a question or just want to say hi, I’ll try my best to get back to you!
+      <h2 className="title">Let's Connect!</h2>
+      <p className="connect-message">
+        Feel free to drop a message—whether it's for a chat, a question, or an exciting opportunity.
+        I'd love to hear from you and explore how we can collaborate!
       </p>
+      <div className="contact-info">
+        <ul>
+          <li>
+            <strong>Location:</strong> Long Beach, CA, USA
+          </li>
+          <li>
+            <strong>Timezone:</strong> Pacific Standard Time (PST)
+          </li>
+          <li>
+            <strong>Email:</strong> <a href={`mailto:${email}`}>{email}</a>
+          </li>
+          <li>
+            <strong>LinkedIn:</strong>{' '}
+            <a
+              href={socialMedia.find(media => media.name === 'Linkedin').url}
+              target="_blank"
+              rel="noopener noreferrer">
+              {socialMedia.find(media => media.name === 'Linkedin').url}{' '}
+            </a>
+          </li>
+        </ul>
+      </div>
 
       <a className="email-link" href={`mailto:${email}`}>
         Say Hello
